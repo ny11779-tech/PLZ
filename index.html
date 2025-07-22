@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>멍BTI</title>
+  <style>
+    body {
+      font-family: '맑은 고딕', AppleSDGothicNeo, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff8f0;
+      color: #333;
+    }
+    h1, h2, h3 {
+      text-align: center;
+      color: #d96b3f;
+    }
+    .question {
+      margin-bottom: 25px;
+      padding: 15px;
+      background: #fff0e5;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(217,107,63,0.3);
+    }
+    .question img {
+      max-width: 120px;
+      height: auto;
+      display: block;
+      margin: 10px auto 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    button {
+      background-color: #d96b3f;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      margin: 0 10px 10px 0;
+      font-size: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #b0542e;
+    }
+    #resultSection {
+      display: none;
+      margin-top: 40px;
+      padding: 25px;
+      background: #ffe6cc;
+      border-radius: 15px;
+      box-shadow: 0 3px 10px rgba(217,107,63,0.5);
+      text-align: center;
+    }
+    #resultSection img {
+      max-width: 300px;
+      margin-top: 15px;
+      border-radius: 15px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+    #btnShowResult {
+      display: block;
+      margin: 30px auto;
+      background-color: #f5825a;
+      font-size: 18px;
+      padding: 15px 30px;
+      border-radius: 15px;
+      font-weight: bold;
+    }
+    #btnShowResult:hover {
+      background-color: #d96b3f;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>House of Dog X Cocco Square</h1>
+  <img src="dog_images/멍BTI 사진.png" alt="멍BTI 제목 이미지" style="width:100%; max-width:400px; display:block; margin: 0 auto 30px;" />
+
+  <div id="questionsContainer">
+    <!-- 질문들이 JS로 렌더링됩니다 -->
+  </div>
+
+  <button id="btnShowResult">결과 보기 🐾</button>
+
+  <div id="resultSection">
+    <h2 id="mbtiResult"></h2>
+    <p id="mbtiDescription"></p>
+    <img id="productImage" alt="추천 제품 이미지" />
+    <p id="productDesc"></p>
+  </div>
+
+  <script>
+    // 질문 데이터: [질문, 선택지1, 선택지2, 유형, 이미지경로]
+    const questions = [
+      ["1번 : 산책 나갈 때 강아지의 반응은 어떤가요?", "사람, 강아지에게 먼저 다가간다", "조용히 집사 곁에만 맴돈다", "EI", "dog_images/개냥이.png"],
+      ["2번 : 새로운 장난감을 봤을 때 무슨 반응을 보이나요?", "바로 입에 물어본다.", "신중하게 냄새 맡고 관찰", "NS", "dog_images/뼈다귀 문 강아지.png"],
+      ["3번 : 혼자 있을 때, 무슨 행동을 하나요?", "창밖을 구경하거나, 주변을 돌아다닌다", "주로 자거나 한 곳에서 쉰다", "PJ", "dog_images/시바견 사진.png"],
+      ["4번 : 낯선 강아지와 만나면 어떻게 행동하나요?", "적극적으로 다가가서 논다", "경계하거나 집사 뒤에 숨는다", "EI", "dog_images/어울리는 강아지.png"],
+      ["5번 : 간식 줄 때의 강아지 반응은 어떤가요?", "바로 먹고 더 달라고 애교 부린다.", "침착하게 기다리거나 아껴 먹는다", "FT", "dog_images/파블로프 강아지.png"],
+      ["6번 : 강아지는 무슨 놀이를 좋아하나요?", "다양한 종류의 장난감을 좋아한다", "익숙한 놀이만 반복한다", "NS", "dog_images/뛰는 강아지.png"],
+      ["7번 : 집사에게 혼날 때 반응은 어떤가요?", "금방 풀고 애교를 부린다", "빠지거나 한동안 숨는다", "FT", "dog_images/뽀글머리 강아지.png"],
+      ["8번 : 산책할 때 강아지의 리드줄 텐션은 어떤가요?", "강아지가 끌고 다니거나 앞장서는 타입이다", "집사 곁을 조용히 걷는 타입이다", "PJ", "dog_images/강아지 산책 사진.png"]
+    ];
+
+    // 점수 초기화
+    const scores = { EI: 0, NS: 0, FT: 0, PJ: 0 };
+
+    // mbti 설명
+    const mbti_descriptions = {
+      "ESTJ": "성실하고 활동적인 리더형 멍멍이!",
+      "ESFJ": "사랑이 넘치고 사교성 좋은 가족형 멍멍이!",
+      "ISTJ": "차분하고 신중한 계획가 멍멍이!",
+      "ISFJ": "다정하고 보호 본능 강한 힐러 멍멍이!",
+      "ESTP": "모험심 가득한 활발한 탐험가 멍멍이!",
+      "ESFP": "장난꾸러기 즐거운 파티 멍멍이!",
+      "ISTP": "침착하고 관찰력 뛰어난 해결사 멍멍이!",
+      "ISFP": "감성적이고 조용한 예술가 멍멍이!",
+      "ENFJ": "따뜻한 리더십으로 친구들을 이끄는 멍멍이!",
+      "ENTJ": "똑똑하고 자신감 넘치는 전략가 멍멍이!",
+      "INFJ": "조용하지만 깊은 마음을 가진 사려 깊은 멍멍이!",
+      "INTJ": "논리적이고 독립적인 천재 멍멍이!",
+      "ENFP": "상상력이 풍부하고 활발한 아이디어 뱅크 멍멍이!",
+      "ENTP": "재치 있고 논쟁을 즐기는 토론가 멍멍이!",
+      "INFP": "순수하고 이상주의적인 꿈꾸는 멍멍이!",
+      "INTP": "분석적이고 호기심 많은 탐구자 멍멍이!"
+    };
+
+    // 제품 추천
+    const product_recommendations = {
+      "ESTJ": {
+        image: "dog_images/glorious.png",
+        desc: "활동적인 ESTJ에게는 우아한 Glorious를 추천합니다!"
+      },
+      "ESFJ": {
+        image: "dog_images/glorious.png",
+        desc: "사교성 좋은 ESFJ에게는 우아한 향기의 Glorious를 추천합니다!"
+      },
+      "ISTJ": {
+        image: "dog_images/adventurous.png",
+        desc: "차분한 ISTJ에게는 시원한 향기의 Adventurous를 추천합니다!"
+      },
+      "ISFJ": {
+        image: "dog_images/adventurous.png",
+        desc: "차분한 ISFJ에게는 시원한 향기의 Adventurous를 추천합니다!"
+      },
+      "ESTP": {
+        image: "dog_images/glorious.png",
+        desc: "활발한 ESTP에게는 우아한 향기의 Glorious를 추천합니다!"
+      },
+      "ESFP": {
+        image: "dog_images/harmonious.png",
+        desc: "장난꾸러기 ESFP에게는 은은한 향기의 Harmonious를 추천합니다!"
+      },
+      "ISTP": {
+        image: "dog_images/adventurous.png",
+        desc: "침착한 ISTP에게는 시원한 향기의 Adventurous를 추천합니다!"
+      },
+      "ISFP": {
+        image: "dog_images/harmonious.png",
+        desc: "감성적인 ISFP에게는 은은한 향기의 Harmonious를 추천합니다!"
+      },
+      "ENFJ": {
+        image: "dog_images/adventurous.png",
+        desc: "따뜻한 ENFJ에게는 시원한 향기의 Adventurous를 추천합니다!"
+      },
+      "ENTJ": {
+        image: "dog_images/harmonious.png",
+        desc: "자신감 넘치는 ENTJ에게는 은은한 향기의 Harmonious를 추천합니다!"
+      },
+      "INFJ": {
+        image: "dog_images/glorious.png",
+        desc: "사려 깊은 INFJ에게는 우아한 향기의 Glorious를 추천합니다!"
+      },
+      "INTJ": {
+        image: "dog_images/glorious.png",
+        desc: "논리적인 INTJ에게는 우아한 향기의 Glorious를 추천합니다!"
+      },
+      "ENFP": {
+        image: "dog_images/adventurous.png",
+        desc: "상상력이 풍부한 ENFP에게는 시원한 향기의 Adventurous를 추천합니다!"
+      },
+      "ENTP": {
+        image: "dog_images/harmonious.png",
+        desc: "재치 있는 ENTP에게는 은은한 향기의 Harmonious를 추천합니다!"
+      },
+      "INFP": {
+        image: "dog_images/adventurous.png",
+        desc: "이상주의적인 INFP에게는 시원한 향기의 Adventurous를 추천합니다!"
+      },
+      "INTP": {
+        image: "dog_images/harmonious.png",
+        desc: "호기심 많은 INTP에게는 은은한 향기의 Harmonious를 추천합니다!"
+      }
+    };
+
+    // 질문 영역
+    const container = document.getElementById("questionsContainer");
+
+    // 현재 선택지 체크용 변수 (중복 방지)
+    const answered = Array(questions.length).fill(false);
+
+    questions.forEach((q, idx) => {
+      const div = document.createElement("div");
+      div.className = "question";
+
+      // 질문 텍스트
+      const questionText = document.createElement("h3");
+      questionText.textContent = q[0];
+      div.appendChild(questionText);
+
+      // 질문 이미지
+      const img = document.createElement("img");
+      img.src = q[4];
+      img.alt = `질문 ${idx + 1} 이미지`;
+      div.appendChild(img);
+
+      // 버튼 2개 영역
+      const btn1 = document.createElement("button");
+      btn1.textContent = "1. " + q[1];
+      btn1.onclick = () => {
+        if (answered[idx]) return;
+        scores[q[3]] += 1;
+        answered[idx] = true;
+        btn1.disabled = true;
+        btn2.disabled = true;
+      };
+
+      const btn2 = document.createElement("button");
+      btn2.textContent = "2. " + q[2];
+      btn2.onclick = () => {
+        if (answered[idx]) return;
+        scores[q[3]] -= 1;
+        answered[idx] = true;
+        btn1.disabled = true;
+        btn2.disabled = true;
+      };
+
+      div.appendChild(btn1);
+      div.appendChild(btn2);
+
+      container.appendChild(div);
+    });
+
+    // 결과 보기 버튼 이벤트
+    document.getElementById("btnShowResult").onclick = () => {
+      // 모든 질문이 답변 되었는지 체크
+      if (answered.includes(false)) {
+        alert("모든 질문에 답변해주세요!");
+        return;
+      }
+
+      // MBTI 계산
+      let mbti = "";
+      mbti += scores.EI >= 0 ? "E" : "I";
+      mbti += scores.NS >= 0 ? "N" : "S";
+      mbti += scores.FT >= 0 ? "F" : "T";
+      mbti += scores.PJ >= 0 ? "P" : "J";
+
+      // 결과 출력
+      document.getElementById("mbtiResult").textContent = `🐶 당신 강아지의 멍BTI는 ${mbti} 입니다!`;
+
+      // 설명
+      if (mbti_descriptions[mbti]) {
+        document.getElementById("mbtiDescription").textContent = mbti_descriptions[mbti];
+      } else {
+        document.getElementById("mbtiDescription").textContent = "설명 데이터가 없습니다.";
+      }
+
+      // 제품 이미지, 설명 출력
+      if (product_recommendations[mbti]) {
+        document.getElementById("productImage").src = product_recommendations[mbti].image;
+        document.getElementById("productDesc").textContent = product_recommendations[mbti].desc;
+      } else {
+        document.getElementById("productImage").src = "";
+        document.getElementById("productDesc").textContent = "";
+      }
+
+      // 결과 영역 보이기
+      document.getElementById("resultSection").style.display = "block";
+
+      // 결과 영역으로 부드럽게 스크롤 이동
+      document.getElementById("resultSection").scrollIntoView({ behavior: "smooth" });
+    };
+  </script>
+</body>
+</html>
