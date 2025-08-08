@@ -248,7 +248,10 @@
         answered[idx] = true;
         btn1.disabled = true;
         btn2.disabled = true;
-      };
+
+        btn1.style.backgroundColor = '#d96b3f'; // 클릭 후 배경색 변경
+        btn1.style.color = '#fff';               // 글자색 변경
+     };
 
       const btn2 = document.createElement("button");
       btn2.textContent = "2. " + q[2];
@@ -258,13 +261,16 @@
         answered[idx] = true;
         btn1.disabled = true;
         btn2.disabled = true;
+        
+        btn2.style.backgroundColor = '#d96b3f'; 
+        btn2.style.color = '#fff';
       };
 
       div.appendChild(btn1);
       div.appendChild(btn2);
 
       container.appendChild(div);
-    });
+
 
     // 결과 보기 버튼 이벤트
     document.getElementById("btnShowResult").onclick = () => {
@@ -309,6 +315,7 @@
   </script>
 </body>
 </html>
+
 
 
 
