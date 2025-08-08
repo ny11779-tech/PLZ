@@ -18,11 +18,18 @@
       background: #fff8f0;
       color: #333;
     }
-    h1, h2, h3 {
-      text-align: center;
-      color: #000000;
-    }
+  h1 {
+    text-align: center; /* 가운데 정렬 */
+    color: #000000;      /* 글자 색 */
+    font-size: 36px;     /* 원하는 크기로 조절 */
+    margin-bottom: 30px; /* 아래쪽 간격 조절 */
+  }
 
+  /* 기존 h2, h3 스타일 있으면 여기에 두거나 따로 빼도 됩니다 */
+  h2, h3 {
+    text-align: center;
+    color: #000000;
+  }
   /* 질문 컨테이너에 flex 세로 정렬 */
     #questionsContainer {
       display: flex;
@@ -293,6 +300,7 @@
   </script>
 </body>
 </html>
+
 
 
 
