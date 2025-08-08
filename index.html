@@ -2,10 +2,16 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>멍BTI</title>
+  <meta name "viewport" content="width=device-width, initial-scale=1.0">
+  <title>멍BTI TEST</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: '맑은 고딕', AppleSDGothicNeo, sans-serif;
+      font-family: 'Noto Sans', sans-serif;
+    }
+  <style>
+    body {
+      font-family: 'Noto Sans', AppleSDGothicNeo, sans-serif;
       max-width: 700px;
       margin: 40px auto;
       padding: 20px;
@@ -14,12 +20,12 @@
     }
     h1, h2, h3 {
       text-align: center;
-      color: #d96b3f;
+      color: #ffffff;
     }
     .question {
       margin-bottom: 25px;
       padding: 15px;
-      background: #fff0e5;
+      background: #f6cece;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(217,107,63,0.3);
     }
@@ -32,8 +38,8 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.15);
     }
     button {
-      background-color: #d96b3f;
-      color: white;
+      background-color: #fff;
+      color: black;
       border: none;
       padding: 10px 18px;
       margin: 0 10px 10px 0;
@@ -43,7 +49,7 @@
       transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #b0542e;
+      background-color: #ffffff;
     }
     #resultSection {
       display: none;
@@ -76,8 +82,7 @@
 </head>
 <body>
 
-  <h1>House of Dog X Cocco Square</h1>
-  <img src="dog_images/멍BTI 사진.png" alt="멍BTI 제목 이미지" style="width:100%; max-width:400px; display:block; margin: 0 auto 30px;" />
+  <h1>House of Dog X COCCO SQUARE</h1>
 
   <div id="questionsContainer">
     <!-- 질문들이 JS로 렌더링됩니다 -->
@@ -93,16 +98,16 @@
   </div>
 
   <script>
-    // 질문 데이터: [질문, 선택지1, 선택지2, 유형, 이미지경로]
+    // 질문 데이터: [질문, 선택지1, 선택지2, 유형]
     const questions = [
-      ["1번 : 산책 나갈 때 강아지의 반응은 어떤가요?", "사람, 강아지에게 먼저 다가간다", "조용히 집사 곁에만 맴돈다", "EI", "dog_images/개냥이.png"],
-      ["2번 : 새로운 장난감을 봤을 때 무슨 반응을 보이나요?", "바로 입에 물어본다.", "신중하게 냄새 맡고 관찰", "NS", "dog_images/뼈다귀 문 강아지.png"],
-      ["3번 : 혼자 있을 때, 무슨 행동을 하나요?", "창밖을 구경하거나, 주변을 돌아다닌다", "주로 자거나 한 곳에서 쉰다", "PJ", "dog_images/시바견 사진.png"],
-      ["4번 : 낯선 강아지와 만나면 어떻게 행동하나요?", "적극적으로 다가가서 논다", "경계하거나 집사 뒤에 숨는다", "EI", "dog_images/어울리는 강아지.png"],
-      ["5번 : 간식 줄 때의 강아지 반응은 어떤가요?", "바로 먹고 더 달라고 애교 부린다.", "침착하게 기다리거나 아껴 먹는다", "FT", "dog_images/파블로프 강아지.png"],
-      ["6번 : 강아지는 무슨 놀이를 좋아하나요?", "다양한 종류의 장난감을 좋아한다", "익숙한 놀이만 반복한다", "NS", "dog_images/뛰는 강아지.png"],
-      ["7번 : 집사에게 혼날 때 반응은 어떤가요?", "금방 풀고 애교를 부린다", "빠지거나 한동안 숨는다", "FT", "dog_images/뽀글머리 강아지.png"],
-      ["8번 : 산책할 때 강아지의 리드줄 텐션은 어떤가요?", "강아지가 끌고 다니거나 앞장서는 타입이다", "집사 곁을 조용히 걷는 타입이다", "PJ", "dog_images/강아지 산책 사진.png"]
+      ["1번 : 산책 나갈 때 강아지의 반응은 어떤가요?", "사람, 강아지에게 먼저 다가간다", "조용히 집사 곁에만 맴돈다", "EI"],
+      ["2번 : 새로운 장난감을 봤을 때 무슨 반응을 보이나요?", "바로 입에 물어본다.", "신중하게 냄새 맡고 관찰", "NS"],
+      ["3번 : 혼자 있을 때, 무슨 행동을 하나요?", "창밖을 구경하거나, 주변을 돌아다닌다", "주로 자거나 한 곳에서 쉰다", "PJ"],
+      ["4번 : 낯선 강아지와 만나면 어떻게 행동하나요?", "적극적으로 다가가서 논다", "경계하거나 집사 뒤에 숨는다", "EI"],
+      ["5번 : 간식 줄 때의 강아지 반응은 어떤가요?", "바로 먹고 더 달라고 애교 부린다.", "침착하게 기다리거나 아껴 먹는다", "FT"],
+      ["6번 : 강아지는 무슨 놀이를 좋아하나요?", "다양한 종류의 장난감을 좋아한다", "익숙한 놀이만 반복한다", "NS"],
+      ["7번 : 집사에게 혼날 때 반응은 어떤가요?", "금방 풀고 애교를 부린다", "빠지거나 한동안 숨는다", "FT"],
+      ["8번 : 산책할 때 강아지의 리드줄 텐션은 어떤가요?", "강아지가 끌고 다니거나 앞장서는 타입이다", "집사 곁을 조용히 걷는 타입이다", "PJ"]
     ];
 
     // 점수 초기화
@@ -287,3 +292,4 @@
   </script>
 </body>
 </html>
+
