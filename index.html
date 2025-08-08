@@ -12,7 +12,7 @@
   <style>
     body {
       font-family: 'Noto Sans', AppleSDGothicNeo, sans-serif;
-      max-width: 300px;
+      max-width: 250px;
       margin: 40px auto;
       padding: 20px;
       background: #fff8f0;
@@ -26,10 +26,17 @@
   }
 
   /* 기존 h2, h3 스타일 있으면 여기에 두거나 따로 빼도 됩니다 */
-  h2, h3 {
+  h2 {
     text-align: center;
     color: #000000;
   }
+
+  h3 {
+    font-size: 30px;      /* 질문 폰트 크기 */
+    margin-bottom: 40px;  /* 질문과 버튼 사이 간격 */
+    color: #000000;       /* 질문 글자 색 */
+    text-align: center;   /* 질문 가운데 정렬 (필요시) */
+  }   
   /* 질문 컨테이너에 flex 세로 정렬 */
     #questionsContainer {
       display: flex;
@@ -300,6 +307,7 @@
   </script>
 </body>
 </html>
+
 
 
 
