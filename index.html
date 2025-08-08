@@ -43,13 +43,13 @@
       font-size: 20px;
       border-radius: 15px;
       border: none;
-      background-color: #d96b3f;
+      background-color: #000000;
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
     #startBtn:hover {
-      background-color: #b0542e;
+      background-color: #ffa1f1;
     }
 
     /* 2페이지 질문 및 결과 스타일 (기존 코드 참고) */
@@ -121,14 +121,17 @@
 
   <!-- 1페이지 -->
   <div id="page1" class="page active">
-    <img src="dog_images/cocco_square.jpg" alt="Cocco Square 이미지" />
+    <img src="dog_images/cocco_square.jpg">
     <h1>멍BTI 테스트에 오신 걸 환영합니다!</h1>
     <button id="startBtn">시작하기</button>
   </div>
 
   <!-- 2페이지 -->
   <div id="page2" class="page">
-    <h1>House of Dog X COCCO SQUARE</h1>
+    <h1>House of Dog <br>
+      X <br>
+      COCCO SQUARE
+    </h1>
 
     <div id="questionsContainer"></div>
 
@@ -332,3 +335,4 @@
 
 </body>
 </html>
+
