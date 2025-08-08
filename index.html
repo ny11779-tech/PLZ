@@ -36,7 +36,7 @@
     #page1 h1 {
       font-size: 32px;
       margin-bottom: 25px;
-      color: #d96b3f;
+      color: #ffffff;
     }
     #startBtn {
       padding: 15px 40px;
@@ -49,7 +49,7 @@
       transition: background-color 0.3s ease;
     }
     #startBtn:hover {
-      background-color: #b0542e;
+      background-color: #000000;
     }
 
     /* 2페이지 질문 및 결과 스타일 (기존 코드 참고) */
@@ -121,8 +121,8 @@
 
   <!-- 1페이지 -->
   <div id="page1" class="page active">
-    <image: dog_images/cocco square.png>
-    <h1>멍BTI 테스트에 오신 걸 환영합니다!</h1>
+    <image: dog_images/dog_images/cocco_square.png>
+    <h1>멍BTI 테스트</h1>
     <button id="startBtn">시작하기</button>
   </div>
 
@@ -187,8 +187,8 @@
         btn1.disabled = true;
         btn2.disabled = true;
 
-        btn1.style.backgroundColor = '#d96b3f'; 
-        btn1.style.color = '#fff';
+        btn1.style.backgroundColor = '#ffffff'; 
+        btn1.style.color = '#000000';
       };
 
       const btn2 = document.createElement("button");
@@ -200,8 +200,8 @@
         btn1.disabled = true;
         btn2.disabled = true;
 
-        btn2.style.backgroundColor = '#d96b3f';
-        btn2.style.color = '#fff';
+        btn2.style.backgroundColor = '#ffffff';
+        btn2.style.color = '#000000';
       };
 
       div.appendChild(btn1);
@@ -332,5 +332,6 @@
 
 </body>
 </html>
+
 
 
